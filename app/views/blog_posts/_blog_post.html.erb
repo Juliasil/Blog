@@ -1,0 +1,15 @@
+<div class="card bg-light mb-4">
+  <div class="card-body" >
+  <h4><%= link_to blog_post.title, blog_post %></h4>
+
+    <div class="text-muted mb-2">
+      <em> Por <%= blog_post.author %> (<%= l blog_post.created_at, format: :long %>)</em>
+    </div>
+    <p><%= blog_post.body.truncate(200) %></p>
+
+    <p class="text-muted"><%= pluralize blog_post.comments.count, 'Comentário' %></p>
+    <%= link_to "Ler Artigo", blog_post,  class: 'btn btn-warning' %>
+    <%= link_to "Editar", edit_blog_post_path(blog_post), class:'btn btn-secondary' %>
+    <%= link_to "Apagar", blog_post, method: :delete, class: 'btn btn-danger', data: { confirm: 'Você tem certeza' } %>
+  </div>
+</div>
