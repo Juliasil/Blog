@@ -1,0 +1,6 @@
+pt-BR:
+  devise:
+    failure:
+      user:
+        already_authenticated: "Você já está autenticado."
+
