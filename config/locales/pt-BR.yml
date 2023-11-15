@@ -1,0 +1,13 @@
+pt-BR:
+  activerecord:
+    models:
+      blog_post: 'BlogPost'
+      comment: 'Comentário'
+    attributes:
+      blog_post:
+        title: 'Título'
+        author: 'Autor'
+        body: 'Post'
+    comment:
+      author: 'Author'
+      body: 'Comentário'
