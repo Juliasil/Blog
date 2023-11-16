@@ -11,3 +11,6 @@ pt-BR:
     comment:
       author: 'Author'
       body: 'Comentário'
+    time:
+      formats:
+        log: "%d/%m/%Y %H:%M:%S"

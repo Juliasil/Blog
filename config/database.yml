@@ -17,6 +17,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  timezone: "Brasilia"
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 

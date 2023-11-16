@@ -1,4 +1,64 @@
-<%= link_to "Edit", edit_blog_post(@blog_post) if user_signed_in? %>
-<h1><%= @blog_post.title %></h1>
+<%= link_to "Edit", edit_blog_post_path(@blog_post) if user_signed_in? %>
+<div class="shadow bg-light p-5 rounded">
+  <div class="text-center mb-5">
+    <h1><%= @blog_post.title %></h1>
+    <p class="text-muted">
+      <strong>Por <%= @blog_post.author  %></strong><br>
+      <%= l @blog_post.created_at, format: :long %>
+    </p>
+  </div>
 
-<%= @blog_post.body %>
+
+  <div class="px-5">
+       <%= @blog_post.body.gsub("\n", "<br>").html_safe %>
+  </div>
+</div>
+
+<div class="m-5">
+  <div class="text-center">
+    <h4>
+      <%= pluralize(@blog_post.comments.count, 'Comentário' ) %>
+
+      <% if @blog_post.comments.empty?  %>
+        <span class="badge badge-warning">Seja o primeiro a comentar!</span>
+      <% end %>
+    </h4>
+  </div>
+
+  <div class="shadow-sm m-3 p-3 bg-light rounded">
+    <%= form_with model: @comment, local: true do |form| %>
+      <%= form.hidden_field :blog_post_id, value: @blog_post.id %>
+      <div class="form-group">
+        <%= form.label :author, 'Autor(a)' %>
+        <%= form.text_field :author, class: 'form-control' %>
+      </div>
+
+      <div class="form-group"  >
+        <%= form.label :body,  'Comentário' %>
+        <%= form.text_area :body, class: 'form-control', rows: 5 %>
+      </div>
+      <%= form.submit 'Enviar', class: 'btn btn-warning m-2', data: { disable_with: 'Enviando...' }%>
+    <% end %>
+  </div>
+
+  <% @comments.each do |comment| %>
+    <div class="shadow-sm m-3 p-3 bg-light rounded">
+      <div class="row">
+        <div class="col">
+          <strong><%= comment.author %></strong>
+        </div>
+
+        <div class="col text-right">
+
+            <em  class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= comment.created_at.strftime('%d/%m/%Y %H:%M:%S') %>">
+              <%= time_ago_in_words(comment.created_at) %> atrás
+            </em>
+        </div>
+      </div>
+
+      <hr>
+
+      <%= sanitize(comment.body.gsub("\n", "<br>")).html_safe %>
+    </div>
+  <% end %>
+</div>

@@ -6,15 +6,20 @@
       <% end %>
     </div>
   <% end %>
-  <div>
+  <div class="form-group" >
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: 'form-control' %>
   </div>
 
-  <div>
+  <div class="form-group">
+    <%= form.label :author %>
+    <%= form.text_field :author, class: 'form-control' %>
+  </div>
+
+  <div class="form-group"  >
     <%= form.label :body %>
-    <%= form.text_area :body %>
+    <%= form.text_area :body, class: 'form-control', rows: 5 %>
   </div>
 
-  <%= form.button %>
+  <%= form.submit 'Criar', class: 'btn btn-warning', data: { disable_with: 'Criando...' }%>
 <% end %>

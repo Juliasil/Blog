@@ -1,8 +1,9 @@
-<h1>Meu Blog</h1>
-
-<% @blog_posts.each do |blog_posts| %>
-  <div>
-    <h2><%= link_to blog_post.title, blog_post %></h2>
-    <%= blog_post.body %>
-  </div>
+<% @blog_posts.each do |blog_post| %>
+  <%= render(blog_post) %>
 <% end %>
+
+<hr>
+
+<div class="text-right">
+  <%= link_to "Criar novo post", new_blog_post_path, class: 'btn btn-warning m-2'  %>
+</div>

@@ -1,11 +1,15 @@
 class BlogPostsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_blog_post, except: [:index, :new, :create]
+
 
   def index
     @blog_posts = BlogPost.all
   end
 
   def show
+    @comments = @blog_post.comments
+    @comment = Comment.new
   end
 
   def new
@@ -13,7 +17,7 @@ class BlogPostsController < ApplicationController
   end
 
   def create
-    @blog_post = Blog_Post.new(blog_post_params)
+    @blog_post = BlogPost.new(blog_post_params)
     if @blog_post.save
       redirect_to @blog_post
     else
@@ -33,6 +37,7 @@ class BlogPostsController < ApplicationController
   end
 
   def destroy
+    @blog_post.comments.destroy_all
     @blog_post.destroy
     redirect_to root_path
   end
