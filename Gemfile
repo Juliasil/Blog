@@ -47,6 +47,7 @@ gem 'pry'
 gem 'friendly_id'
 
 
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
