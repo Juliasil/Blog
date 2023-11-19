@@ -1,0 +1,12 @@
+<h2 class="text-muted">
+  <% if @blog_psts.any? %>
+    <%= pluralize (@blog_posts.count 'resulado' ) %>encontrados:
+    <% else %>
+  Nenhum resultado encontrado
+    <% end  %>
+</h2>
+
+
+<% @blog_posts.each do || %>
+  <%= render blog_post %>
+<% end %>
