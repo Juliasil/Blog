@@ -45,6 +45,7 @@ gem "bootsnap", require: false
 gem 'bootstrap', '~> 5.1.0'
 gem 'pry'
 gem 'friendly_id'
+gem 'pg_search'
 
 
 
