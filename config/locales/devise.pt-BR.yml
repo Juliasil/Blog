@@ -3,4 +3,5 @@ pt-BR:
     failure:
       user:
         already_authenticated: "Você já está autenticado."
+        signed_in: "Você fez login com sucesso."
 
