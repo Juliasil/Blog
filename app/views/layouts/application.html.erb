@@ -31,16 +31,28 @@
          <%= message %>
 
          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
+           <span aria-hidden="true">&times;&times;</span>
          </button>
       </div>
      <% end %>
+
+     <div class="row">
+       <div class="col-4 offset-8">
+         <div class="search mb-3">
+           <%= form_with url: search_blog_posts_path, method: :get, local: true, class: 'd-flex' do |form| %>
+             <%= form.search_field :q, class: 'form-control me-2', required: true, placeholder: 'Busca' %>
+             <%= form.submit 'Buscar', class: 'btn btn-outline-danger', data: {disable_with: 'Buscando...'} %>
+           <% end %>
+         </div>
+       </div>
+     </div>
+
      <%= yield %>
    </div>
 
 
   <footer class="bg-black text-white text-center mt-5 p-4">
-    Copyright © TecnoBlog<%= Date.current.year %>.
+    Copyright © JulsilTecnoBlog<%= Date.current.year %>.
   </footer>
 
 

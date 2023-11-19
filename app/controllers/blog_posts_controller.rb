@@ -4,11 +4,15 @@ class BlogPostsController < ApplicationController
 
 
   def index
-    @blog_posts = BlogPost.all
+    @blog_posts = BlogPost.order(created_at: :desc)
+  end
+
+  def search
+    @blog_posts = BlogPost.search(search_params[:q])
   end
 
   def show
-    @comments = @blog_post.comments
+    @comments = @blog_post.comments.order(created_at: :desc)
     @comment = Comment.new
   end
 
@@ -19,8 +23,9 @@ class BlogPostsController < ApplicationController
   def create
     @blog_post = BlogPost.new(blog_post_params)
     if @blog_post.save
-      redirect_to @blog_post
+      redirect_to @blog_post, notice: 'O post foi criado com  sucesso.'
     else
+      flash.now[:alert] = @blog_post.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end
   end
@@ -48,8 +53,12 @@ class BlogPostsController < ApplicationController
     params.require(:blog_post).permit(:title, :author, :body)
   end
 
+  def search_params
+    params.permit(:q)
+  end
+
   def set_blog_post
-    @blog_post = BlogPost.find(params[:id])
+    @blog_post = BlogPost.friendly.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path
   end
