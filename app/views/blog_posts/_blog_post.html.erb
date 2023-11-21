@@ -10,6 +10,6 @@
     <p class="text-muted"><%= pluralize blog_post.comments.count, 'Comentário' %></p>
     <%= link_to "Ler Artigo", blog_post,  class: 'btn btn-warning' %>
     <%= link_to "Editar", edit_blog_post_path(blog_post), class:'btn btn-secondary' %>
-    <%= link_to "Apagar", blog_post, method: :delete, class: 'btn btn-danger', data: { confirm: 'Você tem certeza' } %>
+
   </div>
 </div>
