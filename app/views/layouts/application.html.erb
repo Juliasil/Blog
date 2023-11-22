@@ -1,61 +1,87 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>JulsilTecnoBlog</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JulsilTecnoBlog</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <style>
+      body {
+          padding-top: 56px;
+      }
+      @media (min-width: 768px) {
+          body {
+              padding-top: 76px;
+          }
+      }
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  </head>
+      {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
+      .navbar {
+          background-color: #343a40;
+      }
+      .jumbotron {
+          background-color: #343a40;
+          color: #fff;
+      }
 
+  </style>
+</head>
+<body class="bg-light">
 
-  <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <%= link_to root_path, class: 'navbar-brand' do %>
+      <%= image_tag "programador.png", alt: "Programador Codificando", width: 40, height: 40, class: 'd-inline-block align-text-top' %>
+      JulsilTecnoBlog
+    <% end %>
 
-   <div class="bg-black text-white text-center mb-4 p-4">
-     <%= link_to root_path, class: 'text-white' do %>
-       <%= image_tag "programador.png", alt: "Programador Codificando", width: 200 %>
-       <h1 class display-4 >JulsilTecnoBlog: Insights de Código</h1>
-     <% end %>
-     <p class="lead">
-       Explorando Linguagens, Ferramentas e Técnicas de Programação.
-     </p>
-   </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-   <div class="container" >
-     <% flash.each do |type, message| %>
-        <div class="alert alert-<%= type == 'alert' ? 'danger' : 'success '%> alert-dismissible fade show" role="alert">
-         <%= message %>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "New blog post", new_blog_post_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-           <span aria-hidden="true">&times;&times;</span>
-         </button>
-      </div>
-     <% end %>
+<div class="container mt-4">
+  <div class="jumbotron text-warning text-center p-4 mb-4">
+    <%= link_to root_path, class: 'text-white' do %>
+      <%= image_tag "programador.png", alt: "Programador Codificando", width: 200, class: 'mb-3' %>
+      <h1 class="display-4">JulsilTecnoBlog: Insights de Código</h1>
+    <% end %>
+    <p class="lead">Explorando Linguagens, Ferramentas e Técnicas de Programação.</p>
+  </div>
 
-     <div class="row">
-       <div class="col-4 offset-8">
-         <div class="search mb-3">
-           <%= form_with url: search_blog_posts_path, method: :get, local: true, class: 'd-flex' do |form| %>
-             <%= form.search_field :q, class: 'form-control me-2', required: true, placeholder: 'Busca' %>
-             <%= form.submit 'Buscar', class: 'btn btn-outline-danger', data: {disable_with: 'Buscando...'} %>
-           <% end %>
-         </div>
-       </div>
-     </div>
+  <div class="row">
+    <div class="col-md-8">
+      <%= yield %>
+    </div>
+  </div>
+</div>
 
-     <%= yield %>
-   </div>
+<footer class="bg-dark text-white text-center mt-5 p-4">
+  <div class="container">
+    <p class="mb-0">Copyright © JulsilTecnoBlog <%= Date.current.year %></p>
+  </div>
+</footer>
 
-
-  <footer class="bg-black text-white text-center mt-5 p-4">
-    Copyright © JulsilTecnoBlog<%= Date.current.year %>.
-  </footer>
-
-
-
-  </body>
+</body>
 </html>
