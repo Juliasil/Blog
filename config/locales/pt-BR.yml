@@ -14,3 +14,12 @@ pt-BR:
     time:
       formats:
         log: "%d/%m/%Y %H:%M:%S"
+        devise:
+          shared:
+            links:
+              forgot_password: "Esqueceu sua senha?"
+              change_password:
+                title: "Altere sua senha"
+                new_password: "Nova senha"
+                confirm_new_password: "Confirme a nova senha"
+                change_my_password: "Alterar minha senha"
